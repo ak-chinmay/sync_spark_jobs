@@ -68,6 +68,58 @@ The project contains following packages and modules:
     2.2 export: This module handles the export logic 
 4. util : This package contains the common logic
 5. main.py : This is the main module which is responsible for orchestration of all the activities
+----
+## Data Builder
+This module is dedicated to creating fake test data in the specified location.
+module location: `sync_spark_jobs/src/data_builder.py`
+
+This module has got 3 entities
+1. PLAYER
+2. GAME
+3. EVENT
+
+Fake data can be generated for these entities, schema for these as below:
+#### Schema
+1. PLAYER
+```buildoutcfg
+id: int,
+last_name: str,
+first_name: str,
+address: str,
+email: str,
+phone: long,
+description: str
+```
+
+2. GAME
+```buildoutcfg
+game_id: long,
+location: str,
+type: str,
+started_at: datetime,
+tournament_id: long
+```
+3. EVENT
+```buildoutcfg
+event_id: long,
+game_id: long,
+player_id: long,
+event_type: str,
+event_time: datetime
+```
+
+#### How to RUN it
+Unlike the main project module, this module has got **positional** arguments.
+There are 3 arguments in it.
+1. Export path e.g. ./export/dummy_player.json
+2. Number of records e.g. 1000
+3. ENTITY from **PLAYER, GAME or ENTITY**
+
+e.g. If you would like to export 10,000 records of EVENT entity then the command would be:
+`python src/data_builder.py ./export/dummy_event.json 10000 EVENT`
+This will export the required file in the desired location.
+
+*Note: Entities are currently restricted to PLAYER, EVENT, GAME*
 
 ##### Reference
 
