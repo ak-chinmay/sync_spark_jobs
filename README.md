@@ -120,6 +120,17 @@ e.g. If you would like to export 10,000 records of EVENT entity then the command
 This will export the required file in the desired location.
 
 *Note: Entities are currently restricted to PLAYER, EVENT, GAME*
+##### EMR
+
+Bootstrap action can be added to EMR
+1. Copy the bootstrap.sh file to S3 bucket
+2. Copy the source code zipped to S3
+2. Use the Absolute s3 path while creating the EMR cluster, in bootstrap
+3. While adding steps add following command, while running from CLI
+```buildoutcfg
+aws emr add-steps --cluster-id j-xxxxxxx --steps Name=Spark,Jar=s3://eu-west-1.elasticmapreduce/libs/script-runner/script-runner.jar,Args=[/home/hadoop/spark/bin/spark-submit,--deploy-mode,cluster,<SCRIPT_PATH_ON_S3>/main.py, <ARGUMENTS>],ActionOnFailure=CONTINUE
+```
+
 
 ##### Reference
 
